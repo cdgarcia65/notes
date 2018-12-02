@@ -19,30 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('notes', function () {
-    $notes = Note::all();
+Route::get('notes', 'NotesController@index');
 
-    return view('notes.list', compact('notes'));
-});
+Route::post('notes', 'NotesController@store');
+Route::get('notes/create', 'NotesController@create');
 
-Route::post('notes', function (Request $request) {
-    $note = new Note;
-    $note->note = $request->note;
-
-    $note->save();
-    return redirect()->to('notes');
-});
-
-Route::get('notes/create', function () {
-    return view('notes.create');
-});
-
-Route::get('notes/{note}', function ($note) {
-    return "The note passed to parameter is $note";
-});
-
-Route::get('create/{title}/{slug?}', function ($note, $slug = null) {
-    dd($note, $slug);
-});
-
-
+Route::get('notes/{note}', 'NotesController@show');
