@@ -9,6 +9,7 @@
 </head>
 <body>
     <h1>Notes</h1>
+    <a href="{{ url('notes/create') }}">Create a note</a>
     <ul>
         @foreach ($notes as $note)
         <li>

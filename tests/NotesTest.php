@@ -8,6 +8,8 @@ use App\Note;
 
 class NotesTest extends TestCase
 {
+    use WithoutMiddleware;
+
     public function test_notes_list()
     {
         // Having
@@ -19,5 +21,17 @@ class NotesTest extends TestCase
             // Then
             ->see('My first note')
             ->see('My second note');
+    }
+
+    public function test_create_note()
+    {
+        $this->visit('notes')
+            ->click('Create a note')
+            ->seePageIs('notes/create')
+            ->see('Create a note')
+            ->type('A new note', 'note')
+            ->press('Create note')
+            ->seePageIs('notes')
+            ->seeInDatabase('notes', ['note' => 'A new note']);
     }
 }
