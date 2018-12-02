@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
+
 use App\Note;
 
 /*
@@ -20,11 +22,19 @@ Route::get('/', function () {
 Route::get('notes', function () {
     $notes = Note::all();
 
-    return view('notes', compact('notes'));
+    return view('notes.list', compact('notes'));
+});
+
+Route::post('notes', function (Request $request) {
+    $note = new Note;
+    $note->note = $request->note;
+
+    $note->save();
+    return redirect()->to('notes');
 });
 
 Route::get('notes/create', function () {
-    return '[create notes]';
+    return view('notes.create');
 });
 
 Route::get('notes/{note}', function ($note) {
