@@ -22,3 +22,17 @@ Route::get('notes', function () {
 
     return view('notes', compact('notes'));
 });
+
+Route::get('notes/create', function () {
+    return '[create notes]';
+});
+
+Route::get('notes/{note}', function ($note) {
+    return "The note passed to parameter is $note";
+});
+
+Route::get('create/{title}/{slug?}', function ($note, $slug = null) {
+    dd($note, $slug);
+});
+
+
