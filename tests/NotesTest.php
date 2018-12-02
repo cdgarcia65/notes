@@ -32,4 +32,24 @@ class NotesTest extends TestCase
             ->seePageIs('notes')
             ->seeInDatabase('notes', ['note' => 'A new note']);
     }
+
+    public function test_notes_summary_and_details()
+    {
+        $text  = 'Begin of the note... Incidunt qui voluptate provident itaque modi. Sunt eius debitis fugit beatae et. ';
+        $text .= 'End of the note.';
+
+        // Having
+        $note = Note::create(['note' => $text]);
+
+        // When
+        $this->visit('notes')
+            ->see('Begin of the note...')
+            ->dontSee('End of the note.')
+            ->seeLink('View note', "notes/$note->id")
+            ->click('View note')
+            ->seePageIs("notes/$note->id")
+            ->see($note->note)
+            ->click('Back')
+            ->seePageIs('notes');
+    }
 }
