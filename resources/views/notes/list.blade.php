@@ -7,8 +7,13 @@
     <ul>
         @foreach ($notes as $note)
             <li>
-                <span class="label label-info">{{ $note->category->name }}</span>
-                {{ $note->note }}
+                @if ($note->category)
+                    <span class="label label-info">{{ $note->category->name }}</span>
+                @else
+                    <span class="label label-warning">Other</span>
+                @endif
+
+                {{ substr($note->note, 0, 100) }} <a href="{{ url('notes/' . $note->id) }}">View note</a>
             </li>
         @endforeach
     </ul>
