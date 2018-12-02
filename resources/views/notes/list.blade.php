@@ -7,6 +7,7 @@
     <ul>
         @foreach ($notes as $note)
             <li>
+                <span class="label label-info">{{ $note->category->name }}</span>
                 {{ $note->note }}
             </li>
         @endforeach
