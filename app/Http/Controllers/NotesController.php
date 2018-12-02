@@ -24,10 +24,12 @@ class NotesController extends Controller
 
     public function store(Request $request)
     {
-        $note = new Note;
-        $note->note = $request->note;
+        $this->validate($request, [
+           'note' => 'required|max:255'
+        ]);
 
-        $note->save();
+        Note::create($request->all());
+
         return redirect()->to('notes');
     }
 
